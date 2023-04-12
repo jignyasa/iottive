@@ -1,5 +1,6 @@
 package com.example.myapplication.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -17,6 +18,8 @@ import com.example.myapplication.Utility.Utility
 import com.example.myapplication.adapter.ProductAdapter
 import com.example.myapplication.databinding.ActivityHomeBinding
 import com.example.myapplication.databinding.ActivityLoginBinding
+import com.example.myapplication.listener.OnImageClickListener
+import com.example.myapplication.model.ProductItem
 import com.example.myapplication.viewmodel.HomeViewModel
 import com.example.myapplication.viewmodel.LoginViewModel
 import com.example.myapplication.viewmodel.MainActivityViewModel
@@ -25,7 +28,7 @@ import java.util.regex.Matcher
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity() ,OnImageClickListener{
     lateinit var binding:ActivityHomeBinding
     private lateinit var viewModel: HomeViewModel
     lateinit var adapter: ProductAdapter
@@ -55,7 +58,7 @@ class HomeActivity : AppCompatActivity() {
     private fun initView() {
         binding=DataBindingUtil.setContentView(this,R.layout.activity_home)
         binding.viewModel=viewModel
-        adapter = ProductAdapter()
+        adapter = ProductAdapter(this)
         binding.rvOrders.adapter = adapter
         binding.rvOrders.layoutManager = LinearLayoutManager(this)
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -68,5 +71,11 @@ class HomeActivity : AppCompatActivity() {
                 return false
             }
         })
+    }
+
+    override fun onImageClick(data: ProductItem) {
+        val intent=Intent(this@HomeActivity,ProductDetailActivity::class.java)
+            intent.putExtra(Constants.DATA,data as ProductItem)
+        startActivity(intent)
     }
 }

@@ -2,7 +2,7 @@ package com.example.myapplication.model
 
 import com.google.gson.annotations.SerializedName
 
-data class ProductItem(@SerializedName("perProductPrice")
+ data class ProductItem(@SerializedName("perProductPrice")
                        val perProductPrice: Double? = 0.0,
                        @SerializedName("productId")
                        val productId: Int? = 0,
@@ -13,4 +13,4 @@ data class ProductItem(@SerializedName("perProductPrice")
                        @SerializedName("productName")
                        val productName: String? = "",
                        @SerializedName("productOtherUrl")
-                       val productOtherUrl: String? = "")
+                       val productOtherUrl: String? = ""):java.io.Serializable

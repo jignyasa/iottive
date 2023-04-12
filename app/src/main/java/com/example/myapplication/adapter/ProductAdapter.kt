@@ -13,10 +13,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.databinding.ItemProductBinding
+import com.example.myapplication.listener.OnImageClickListener
 import com.example.myapplication.model.DataItem
 import com.example.myapplication.model.ProductItem
 
-class ProductAdapter() :
+class ProductAdapter(val imageClickListener: OnImageClickListener) :
     RecyclerView.Adapter<ProductViewHolder>(), Filterable {
     var list = ArrayList<DataItem?>()
     var listData= ArrayList<DataItem>()
@@ -37,12 +38,14 @@ class ProductAdapter() :
         val dataModel = listData.get(position)
         binding.tvNoProductValue.text = dataModel.product?.size.toString()
         binding.data = dataModel
-        var observableList = ObservableArrayList<ProductItem>()
+        var observableList = ArrayList<ProductItem>()
         dataModel.product?.let { observableList.addAll(it) }
-        adapter = ProductImageAdapter(observableList)
+        adapter = ProductImageAdapter()
+        adapter.addData(observableList)
+        adapter.setOnImageClickListener(imageClickListener)
         binding.rvImages.adapter = adapter
         binding.rvImages.layoutManager =
-            LinearLayoutManager(holder.itemView.context, LinearLayoutManager.HORIZONTAL, false)
+            LinearLayoutManager(binding.root.context, LinearLayoutManager.HORIZONTAL, false)
     }
 
     fun addData(list: ArrayList<DataItem>) {
@@ -53,6 +56,10 @@ class ProductAdapter() :
 
     override fun getItemCount(): Int {
         return listData.size
+    }
+
+    fun setOnItemClickParentListener(onImageClickListener: OnImageClickListener){
+
     }
 
     override fun getFilter(): Filter {

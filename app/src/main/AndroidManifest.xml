@@ -50,6 +50,9 @@
         <activity android:name=".activity.HomeActivity"
             android:screenOrientation="portrait"
             android:exported="false"/>
+
+        <activity android:name=".activity.ProductDetailActivity"
+            android:exported="false"/>
     </application>
 
 </manifest>
