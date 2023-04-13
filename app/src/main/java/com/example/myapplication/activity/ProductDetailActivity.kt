@@ -57,7 +57,7 @@ class ProductDetailActivity : AppCompatActivity() {
             viewModel.count.set(data.productCount.toString())
             viewModel.image.set(data.productOtherUrl.toString())
             val option= RequestOptions().skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE)
-            Glide.with(this).apply { option }.load(data.productOtherUrl).into(binding.ivProduct).clearOnDetach()
+            Glide.with(this).apply { option }.load(data.productOtherUrl).placeholder(R.mipmap.ic_launcher).into(binding.ivProduct).clearOnDetach()
         }
         binding.viewModel=viewModel
     }
