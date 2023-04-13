@@ -34,7 +34,7 @@ class ProductImageAdapter() : RecyclerView.Adapter<ProductImageViewHolder>() {
     override fun onBindViewHolder(holder: ProductImageViewHolder, position: Int) {
         val data=list.get(position)
         val option=RequestOptions().skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE)
-        Glide.with(context).apply { option }.load(data.productOtherUrl).into(binding.ivproduct).clearOnDetach()
+        Glide.with(context).apply { option }.load(data.productOtherUrl).placeholder(R.mipmap.ic_launcher).into(binding.ivproduct).clearOnDetach()
         holder.ivProduct.setOnClickListener {  listener.onImageClick(data)}
     }
 
